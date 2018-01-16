@@ -2,11 +2,12 @@ class Particle {
 
   PVector velocity;
   float lifespan = 255;
+  color c;
   
   PShape part;
   float partSize;
   
-  PVector gravity = new PVector(0,0.1);
+  PVector gravity = new PVector(0,-0.1);
 
 
   Particle() {
@@ -24,6 +25,11 @@ class Particle {
     
     rebirth(width/2,height/2);
     lifespan = random(255);
+    
+    int r = (int)random(255);
+    int g = (int)random(255);
+    int b = (int)random(255);
+    c = color(r, g, b);
   }
 
   PShape getShape() {
@@ -53,7 +59,10 @@ class Particle {
     lifespan = lifespan - 1;
     velocity.add(gravity);
     
-    part.setTint(color(255,lifespan));
+    float d = (float)lifespan / 255.0;
+    color cc = color(red(c) * d, green(c) * d, blue(c) * d);
+    
+    part.setTint(cc);
     part.translate(velocity.x, velocity.y);
   }
 }
